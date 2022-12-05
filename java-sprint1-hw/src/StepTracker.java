@@ -10,7 +10,7 @@ public class StepTracker {
     }
 
     public void inputMonthDayStepsFunction(int inputMonth, int inputDay, int inputSteps) {
-        if (checkerMonthDay(inputMonth, inputDay) && checkerSteps(inputSteps)) {
+        if (checkerMonthDay(inputMonth, inputDay) && inputSteps>0) {
             this.monthData[inputMonth - 1][inputDay - 1] = inputSteps;
             System.out.println("сохранено ^_^");
         } else {
@@ -20,18 +20,18 @@ public class StepTracker {
 
     public void statMonthFunction(int numbMonth) {                  // 2- выводит статистику...
         if (numbMonth > 0 && numbMonth < 13) {
-            underStat1(numbMonth);
+            countStepsPerDay(numbMonth);
             System.out.println();
             System.out.println("общее количество шагов в месяц - " + totalStepsInMonth(numbMonth));
-            underStat3(numbMonth);
-            System.out.println("среднее количество шагов за месяц -  " + underStat4(numbMonth));
+            maxStepsInMonth(numbMonth);
+            System.out.println("среднее количество шагов за месяц -  " + avarageStepsPerMonth(numbMonth));
             System.out.println("ваш километраж за месяц - " + Converter.stepsToKmConvert(totalStepsInMonth(numbMonth)));
             System.out.println("сожжено колокалорий за месяц - " + Converter.stepsInCaloriesConvert(totalStepsInMonth(numbMonth)));
             System.out.println("ваша лучшая серия шагов - " + bestSeries(numbMonth));
         }
     }
 
-    public void underStat1(int month) { //считает колличество шагов за каждый день
+    public void countStepsPerDay(int month) { //считает колличество шагов за каждый день
         for (int i = 0; i < monthData[month - 1].length; i++) {
             System.out.print((i + 1) + " день: " + monthData[month - 1][i] + ", ");
         }
@@ -45,7 +45,7 @@ public class StepTracker {
         return totalStepsPerMonth;
     }
 
-    public void underStat3(int month) { //максимальное колличество пройденных шагов в месяце
+    public void maxStepsInMonth(int month) { //максимальное колличество пройденных шагов в месяце
         int maxSteps = 0;
         for (int i = 0; i < monthData[month - 1].length; i++) {
             if (monthData[month - 1][i] > maxSteps) {
@@ -55,7 +55,7 @@ public class StepTracker {
         System.out.println("максимальное колличество шагов в этом месяце - " + maxSteps);
     }
 
-    double underStat4(int month) { //среднее колличество пройденных шагов а месяце
+    double avarageStepsPerMonth(int month) { //среднее колличество пройденных шагов а месяце
         return Math.rint(totalStepsInMonth(month) / 30.0);
     }
 
@@ -88,8 +88,6 @@ public class StepTracker {
         return (month > 0 && month < 13 && days > 0 && days < 31);
     }
 
-    private boolean checkerSteps(int steps) {
-        return (steps > 0);
-    }
+    //private boolean checkerSteps(int steps) return (steps > 0);
 
 }
